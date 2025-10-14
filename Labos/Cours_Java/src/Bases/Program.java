@@ -1,5 +1,7 @@
 package Bases;
 
+import java.util.Scanner;
+
 public class Program {
     public static void main(String[] args) {
         System.out.println("coucou");
@@ -81,6 +83,14 @@ public class Program {
         do{
             System.out.println(unInt);
         }while (unInt++ < 10);
+
+        // CONSTANTE
+
+        final int CONSTANTE = 3; // final permet  de définir qu'une variable ne peut pas être modifier (immuable)
+        final int CONSTANTE2;
+
+        Scanner sc =  new Scanner(System.in); // permet de récupérer du texte saisi dans la console
+        CONSTANTE2 = sc.nextInt();
 
 
     }
