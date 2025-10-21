@@ -9,6 +9,10 @@ public class TestPile {
             pile.empilerUneValeur(valeur);
             System.out.println("Empilé : " + valeur);
         }
+        for (int i = 1; i <= 10; i++) {
+            boolean depile = pile.depilerUneValeur();
+            System.out.println("Dépilage réussi ? : " + depile);
+        }
 
     }
 }
