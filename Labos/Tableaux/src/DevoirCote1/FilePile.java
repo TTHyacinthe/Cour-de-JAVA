@@ -1,10 +1,16 @@
-package DevoirCôté;
+package DevoirCote1;
 
 import java.util.OptionalInt;
 
 /**
  * classe abstraite representant la base commune d'une pile et d'une file
  * on ne peut pas creer d'objet FilePile directement
+ *
+ * Author       : TAMO Hyacinthe
+ * Date         : 27/10/2025
+ * Version      : 1.0
+ * IA           : Utiliser pour "String toString" et "OptionalInt"
+ *
  */
 
 public abstract class FilePile {
@@ -24,12 +30,16 @@ public abstract class FilePile {
         }
         taille = 0;
     }
+    public FilePile() {
+        tableau = new int[TAILLE_PAR_DEFAUT];
+    }
 
     /**
      * Retire un élément de la structure et le retourne
      * Méthode à implementé dans les classes filles
      * @return OptionalInt contenant la valeur retirée, ou vide si la structure est vide
      */
+     // OptionalInt permet de retourner une valeur null ou une valeur auquel on s'attend
     public abstract OptionalInt pop();
 
     /**

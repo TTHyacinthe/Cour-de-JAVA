@@ -1,4 +1,4 @@
-package DevoirCôté;
+package DevoirCote1;
 
 public class TestFilePile {
     public static void main(String[] args){

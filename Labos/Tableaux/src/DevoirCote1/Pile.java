@@ -1,4 +1,4 @@
-package DevoirCôté;
+package DevoirCote1;
 
 import java.util.OptionalInt;
 
