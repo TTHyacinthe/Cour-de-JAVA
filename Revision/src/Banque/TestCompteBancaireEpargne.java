@@ -5,7 +5,7 @@ public class TestCompteBancaireEpargne {
         // Création de comptes
         CompteBancaire c1 = new CompteBancaire("Alice", 500);
         CompteBancaire c2 = new CompteBancaire("Bob", 100);
-        CompteEpargne  e1 = new CompteEpargne ("Carlos", 775, 5);
+        CompteEpargne  e1 = new CompteEpargne ("Carlos", 775, 2.1);
 
         c1.deposer(1000);
         c1.retirer(200);
