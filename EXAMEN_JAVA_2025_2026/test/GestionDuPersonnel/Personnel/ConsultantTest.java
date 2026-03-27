@@ -1,6 +1,7 @@
 package GestionDuPersonnel.Personnel;
 
 import GestionDuPersonnel.Contrat.Contrat;
+import GestionDuPersonnel.Contrat.TypeContrat;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -11,61 +12,39 @@ class ConsultantTest {
 
     @Test
     void testCalculSalaire() {
-        Contrat contrat = new Contrat(
-                "Mission",
-                LocalDate.of(2023,1,1),
-                null);
         Consultant c = new Consultant(
-                3,
-                "C001",
-                "Lannister",
-                "Baratheon",
+                3, "C001", "Brown", "Lucas",
                 LocalDate.now(),
-                contrat,
-                500,
-                20
+                new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
+                500, 20
         );
 
         assertEquals(10000, c.calculerSalaire());
     }
 
     @Test
-    void testPasDeConges() {
-        Contrat contrat = new Contrat(
-                "Mission",
-                LocalDate.of(2023,1,1),
-                null);
+    void testConges() {
         Consultant c = new Consultant(
-                3,
-                "C001",
-                "Lannister",
-                "Baratheon",
+                3, "C001", "Brown", "Lucas",
                 LocalDate.now(),
-                contrat,
-                500,
-                20
+                new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
+                500, 20
         );
 
         assertEquals(0, c.calculerJoursConges());
     }
 
     @Test
-    void testPasAugmentationAutomatique() {
-        Contrat contrat = new Contrat(
-                "Mission",
-                LocalDate.of(2023,1,1),
-                null);
+    void testAugmentation() {
         Consultant c = new Consultant(
-                3,
-                "C001",
-                "Lannister",
-                "Baratheon",
+                3, "C001", "Brown", "Lucas",
                 LocalDate.now(),
-                contrat,
-                500,
-                20
+                new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
+                500, 20
         );
 
-        assertEquals(5000, c.appliquerAugmentation(5000));
+        double salaire = c.appliquerAugmentation(10000);
+
+        assertEquals(10000, salaire);
     }
 }

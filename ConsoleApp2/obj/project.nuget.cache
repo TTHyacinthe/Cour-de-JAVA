@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9b9NsHH0xx4=",
+  "success": true,
+  "projectFilePath": "D:\\Esa-Namur 2\\Cour-de-JAVA\\ConsoleApp2\\ConsoleApp2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hyaci\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.22.1\\microsoft.visualstudio.azure.containers.tools.targets.1.22.1.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Y2025-2026": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

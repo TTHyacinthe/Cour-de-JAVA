@@ -1,8 +1,11 @@
 package GestionDuPersonnel.Paie;
 
 import GestionDuPersonnel.Contrat.Contrat;
-import GestionDuPersonnel.Paie.DpStrategy.PrimeFixe;
+import GestionDuPersonnel.Contrat.TypeContrat;
 import GestionDuPersonnel.Personnel.Employe;
+import GestionDuPersonnel.Paie.DpStrategy.PrimeFixe;
+import GestionDuPersonnel.Paie.DpStrategy.PrimePourcentage;
+import GestionDuPersonnel.Paie.DpStrategy.PasDePrime;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -10,30 +13,49 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FichePaieTest {
+
     @Test
-    void testSalaireAvecPrimeFixe() {
-
-        Contrat contrat = new Contrat("CDI",
-                LocalDate.now(),
-                null);
-
+    void testSansPrime() {
         Employe e = new Employe(
-                1,
-                "E001",
-                "Tyrion",
-                "Robert",
+                1, "E001", "Test", "User",
                 LocalDate.now(),
-                contrat,
-                3000
+                new Contrat(TypeContrat.CDI, LocalDate.now(), null),
+                3000,
+                "Senior"
         );
 
-        PrimeFixe prime = new PrimeFixe(500);
+        FichePaie f = new FichePaie(e, new PasDePrime());
 
-        FichePaie fiche = new FichePaie(e, prime);
-
-        double total = fiche.calculerSalaireTotale();
-
-        assertEquals(3500, total, 0.001);
+        assertEquals(3000, f.calculerSalaireTotale());
     }
 
+    @Test
+    void testPrimeFixe() {
+        Employe e = new Employe(
+                1, "E001", "Test", "User",
+                LocalDate.now(),
+                new Contrat(TypeContrat.CDI, LocalDate.now(), null),
+                3000,
+                "Senior"
+        );
+
+        FichePaie f = new FichePaie(e, new PrimeFixe(500));
+
+        assertEquals(3500, f.calculerSalaireTotale());
+    }
+
+    @Test
+    void testPrimePourcentage() {
+        Employe e = new Employe(
+                1, "E001", "Test", "User",
+                LocalDate.now(),
+                new Contrat(TypeContrat.CDI, LocalDate.now(), null),
+                3000,
+                "Senior"
+        );
+
+        FichePaie f = new FichePaie(e, new PrimePourcentage(10));
+
+        assertEquals(3300, f.calculerSalaireTotale());
+    }
 }

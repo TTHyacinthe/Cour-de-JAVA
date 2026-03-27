@@ -1,5 +1,7 @@
 package GestionDuPersonnel.Personnel;
 
+import GestionDuPersonnel.Contrat.Contrat;
+import GestionDuPersonnel.Contrat.TypeContrat;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -9,30 +11,36 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonnelsTest {
+
     @Test
     void testPolymorphismeSalaire() {
 
-        List<Personnels> personnel = new ArrayList<>();
+        List<Personnels> liste = new ArrayList<>();
 
-        personnel.add(new Ouvrier(
+        liste.add(new Ouvrier(
                 1, "O001", "Doe", "John",
-                LocalDate.now(), "CDI",15, 160));
+                LocalDate.now(),
+                new Contrat(TypeContrat.CDD, LocalDate.now(), null),
+                15, 160));
 
-        personnel.add(new Employe(
+        liste.add(new Employe(
                 2, "E001", "Smith", "Anna",
-                LocalDate.of(2020, 1, 1), "CDI", 3000));
+                LocalDate.of(2020, 1, 1),
+                new Contrat(TypeContrat.CDI, LocalDate.of(2020,1,1), null),
+                3000, "Senior"));
 
-        personnel.add(new Consultant(
+        liste.add(new Consultant(
                 3, "C001", "Brown", "Lucas",
-                LocalDate.now(), "Mission",500, 20));
+                LocalDate.now(),
+                new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
+                500, 20));
 
         double total = 0;
 
-        for (Personnels p : personnel) {
+        for (Personnels p : liste) {
             total += p.calculerSalaire();
         }
 
         assertTrue(total > 0);
     }
-
 }

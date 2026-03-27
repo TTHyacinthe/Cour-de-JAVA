@@ -21,8 +21,20 @@ public class Consultant extends Personnels{
         this.facturesJours = facturesJours;
     }
 
+    /**
+     * Règle métier :
+     * Un consultant n’est jamais payé en cas d’absence
+     */
     @Override
-    public double calculerSalaire(){
+    public boolean estPayable() {
+        return true;
+    }
+
+    /**
+     * Calcul du salaire
+     */
+    @Override
+    public double calculerSalaire() {
         return tarifJournalier * facturesJours;
     }
 

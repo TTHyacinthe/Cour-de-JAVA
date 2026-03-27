@@ -1,0 +1,15 @@
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\bin\Debug\net9.0\Y2025-2026.exe
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\bin\Debug\net9.0\Y2025-2026.deps.json
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\bin\Debug\net9.0\Y2025-2026.runtimeconfig.json
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\bin\Debug\net9.0\Y2025-2026.dll
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\bin\Debug\net9.0\Y2025-2026.pdb
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\Y2025-2026.GeneratedMSBuildEditorConfig.editorconfig
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\Y2025-2026.AssemblyInfoInputs.cache
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\Y2025-2026.AssemblyInfo.cs
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\Y2025-2026.csproj.CoreCompileInputs.cache
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\Y2025-2026.sourcelink.json
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\Y2025-2026.dll
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\refint\Y2025-2026.dll
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\Y2025-2026.pdb
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\Y2025-2026.genruntimeconfig.cache
+D:\Esa-Namur 2\Cour-de-JAVA\Y2025-2026\obj\Debug\net9.0\ref\Y2025-2026.dll

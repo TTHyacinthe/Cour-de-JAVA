@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 public class Contrat {
 
-    private String typeContrat;
+    private TypeContrat typeContrat;
     private LocalDate dateDebut;
     private LocalDate dateFin;
 
-    public Contrat(String typeContrat,
+    public Contrat(TypeContrat typeContrat,
                    LocalDate dateDebut,
                    LocalDate dateFin) {
         this.typeContrat = typeContrat;
@@ -16,7 +16,7 @@ public class Contrat {
         this.dateFin = dateFin;
     }
 
-    public String getTypeContrat() {
+    public TypeContrat getTypeContrat() {
         return typeContrat;
     }
     public LocalDate getDateDebut() {

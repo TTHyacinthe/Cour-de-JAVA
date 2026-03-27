@@ -1,6 +1,7 @@
 package GestionDuPersonnel.Personnel;
 
 import GestionDuPersonnel.Contrat.Contrat;
+import GestionDuPersonnel.Contrat.TypeContrat;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -11,18 +12,12 @@ class EmployeTest {
 
     @Test
     void testSalaireFixe() {
-        Contrat contrat = new Contrat(
-                "CDI",
-                LocalDate.of(2023,1,1),
-                null);
         Employe e = new Employe(
-                2,
-                "E001",
-                "Michel",
-                "Egon",
+                2, "E001", "Michel", "Egon",
                 LocalDate.of(2020, 1, 1),
-                contrat,
-                3000
+                new Contrat(TypeContrat.CDI, LocalDate.of(2020,1,1), null),
+                3000,
+                "Senior"
         );
 
         assertEquals(3000, e.calculerSalaire());
@@ -30,43 +25,29 @@ class EmployeTest {
 
     @Test
     void testCongesAvecAnciennete() {
-        Contrat contrat = new Contrat(
-                "CDI",
-                LocalDate.of(2023,1,1),
-                null);
         Employe e = new Employe(
-                2,
-                "E001",
-                "Michel",
-                "Egon",
+                2, "E001", "Michel", "Egon",
                 LocalDate.of(2018, 1, 1),
-                contrat,
-                3000
+                new Contrat(TypeContrat.CDI, LocalDate.of(2018,1,1), null),
+                3000,
+                "Senior"
         );
 
-        int conges = e.calculerJoursConges();
-
-        assertTrue(conges >= 20);
+        assertTrue(e.calculerJoursConges() >= 20);
     }
 
     @Test
     void testAugmentation() {
-        Contrat contrat = new Contrat(
-                "CDI",
-                LocalDate.of(2023,1,1),
-                null);
         Employe e = new Employe(
-                2,
-                "E001",
-                "Michel",
-                "Egon",
+                2, "E001", "Michel", "Egon",
                 LocalDate.of(2018, 1, 1),
-                contrat,
-                3000
+                new Contrat(TypeContrat.CDI, LocalDate.of(2018,1,1), null),
+                3000,
+                "Senior"
         );
 
-        double nouveauSalaire = e.appliquerAugmentation(3000);
+        double salaire = e.appliquerAugmentation(3000);
 
-        assertTrue(nouveauSalaire >= 3000);
+        assertTrue(salaire >= 3000);
     }
 }
