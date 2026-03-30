@@ -1,11 +1,12 @@
 package GestionDuPersonnel.Personnel;
 
 import GestionDuPersonnel.Absence.Absence;
+import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Formation.Formation;
 import GestionDuPersonnel.Interfaces.IAugmentation;
 import GestionDuPersonnel.Interfaces.ICalculSalire;
 import GestionDuPersonnel.Interfaces.IGestionConges;
-import GestionDuPersonnel.Contrat.Contrat;
+import GestionDuPersonnel.Paie.FrequencePaiement;
 import GestionDuPersonnel.Presence.Presence;
 
 import java.time.LocalDate;
@@ -13,119 +14,148 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public abstract class Personnels implements ICalculSalire, IGestionConges, IAugmentation {
+public abstract class personnels implements ICalculSalire, IGestionConges, IAugmentation {
 
     protected int id;
     protected String matricule;
     protected String nom;
     protected String prenom;
     protected LocalDate dateEntree;
-    private Contrat contrat;
 
-    // Liste des absences (COMPOSITION)
+    protected Contrat contrat;
+    protected FrequencePaiement frequencePaiement;
+
     protected List<Absence> absences = new ArrayList<>();
-    // Liste des présences
     protected List<Presence> presences = new ArrayList<>();
-    // Liste des formations
     protected List<Formation> formations = new ArrayList<>();
 
+    protected int congesPris = 0;
 
+    public personnels(
+            int id,
+            String matricule,
+            String nom,
+            String prenom,
+            LocalDate dateEntree,
+            Contrat contrat,
+            FrequencePaiement frequencePaiement) {
 
+        if (matricule == null || nom == null || prenom == null || dateEntree == null) {
+            throw new IllegalArgumentException("Paramètres obligatoires manquants");
+        }
 
-    public Personnels(int id,
-                      String matricule,
-                      String nom,
-                      String prenom,
-                      LocalDate dateEntree,
-                      Contrat contrat) {
         this.id = id;
         this.matricule = matricule;
         this.nom = nom;
         this.prenom = prenom;
         this.dateEntree = dateEntree;
         this.contrat = contrat;
+        this.frequencePaiement = frequencePaiement;
+
     }
 
-    /**
-     * Ajouter une absence
-     */
+    // Absences
     public void ajouterAbsence(Absence absence) {
+        if (absence == null) {
+            throw new IllegalArgumentException("Absence invalide");
+        }
+
         absences.add(absence);
     }
-
-    /**
-     * Calcul du total des jours d'absence
-     */
-    public long calculerTotalAbsences() {
+    public int calculerTotalAbsences() {
         return absences.stream()
-                .mapToLong(Absence::getNombreJours)
+                .mapToInt(a -> (int) a.getNombreJours())
                 .sum();
     }
 
-    /**
-     * Méthode abstraite (POLYMORPHISME)
-     * Chaque type de personnel définit sa règle
-     */
-    public abstract boolean estPayable();
-
-    /**
-     * Calcul du salaire (abstrait)
-     */
-    public abstract double calculerSalaire();
-
-    /**
-     * Ajouter une présence
-     */
+    // Presences
     public void ajouterPresence(Presence presence) {
+
+        if (presence == null) {
+            throw new IllegalArgumentException("Presence invalide");
+        }
+
         presences.add(presence);
     }
-
-    /**
-     * Calculer le total des heures travaillées
-     */
-    public int calculerTotalHeures() {
+    public int calculerTotalPresence(){
         return presences.stream()
                 .mapToInt(Presence::getHeuresTravaillees)
                 .sum();
     }
 
-    /**
-     * Ajouter une formation
-     */
+    //Formations
     public void ajouterFormation(Formation formation) {
+
+        if (formation == null) {
+            throw new IllegalArgumentException("Formation invalide");
+        }
+
         formations.add(formation);
     }
-
-    /**
-     * Total jours de formation pour une année donnée
-     */
-    public long calculerFormationAnnuelle(int annee) {
+    public int calculerFormationAnnuelle(int annee) {
         return formations.stream()
                 .filter(f -> f.getAnnee() == annee)
-                .mapToLong(Formation::getNombreJours)
+                .mapToInt(f -> (int) f.getNombreJours())
                 .sum();
     }
 
-
-
-
-    public int getId() {
-        return id;
+    public int calculerTotalFormation() {
+        return formations.stream()
+                .mapToInt(f -> (int) f.getNombreJours())
+                .sum();
     }
-    public String getMatricule() {
-        return matricule;
+
+    // Augmentation (règles globale "2% tous les 2 ans révolus")
+    public double appliquerAugmentation(double salaire){
+        int tranches = getAnciennete() / 2;
+        return salaire * (1 + 0.02 * tranches);
     }
+
+    // Salaire par période
+    public double calculerSalaireParPeriode() {
+        double salaire = calculerSalaire();
+
+        if (frequencePaiement == FrequencePaiement.BIMENSUEL) {
+            return salaire / 2;
+        }
+        return salaire;
+    }
+
+    // Conges
+    public int getSoldeConges() {
+        return calculerJoursConges() -  congesPris;
+    }
+    public void prendreConges(int jours) {
+        if (jours <= 0) {
+            throw new IllegalArgumentException("Nombre de jours invalide");
+        }
+
+        if (jours > getSoldeConges()) {
+            throw new IllegalArgumentException("Pas assez de congés");
+        }
+        congesPris += jours;
+    }
+
+
+    // Anciennete
+    public int getAnciennete(){
+        return Period.between(dateEntree, LocalDate.now()).getYears();
+    }
+
+    //Abstrait
+    public abstract boolean estPayable();
+    public abstract double calculerSalaire();
+    public abstract int calculerJoursConges();
+
+    //Getters
     public String getNom() {
         return nom;
     }
     public String getPrenom() {
         return prenom;
     }
-    public LocalDate getDateEntree() {
-        return dateEntree;
+    public String getMatricule() {
+        return matricule;
     }
-    public Contrat getContrat() {
-        return contrat;
-    }
+
 }

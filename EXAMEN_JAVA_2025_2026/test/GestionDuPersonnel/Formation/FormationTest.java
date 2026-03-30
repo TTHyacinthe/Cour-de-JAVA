@@ -3,6 +3,7 @@ package GestionDuPersonnel.Formation;
 import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Contrat.TypeContrat;
 import GestionDuPersonnel.Personnel.Ouvrier;
+import GestionDuPersonnel.Presence.Presence;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -15,10 +16,10 @@ class FormationTest {
     void testAugmentationOuvrier() {
 
         Ouvrier o = new Ouvrier(
-                1, "O001", "Doe", "John",
+                1, "O001", "Jon", "Snow",
                 LocalDate.now(),
                 new Contrat(TypeContrat.CDD, LocalDate.now(), null),
-                10, 0
+                10
         );
 
         // Formations réparties sur plusieurs années
@@ -34,11 +35,14 @@ class FormationTest {
                 LocalDate.of(2025,1,1),
                 LocalDate.of(2025,1,2)));
 
-        o.ajouterPresence(new GestionDuPersonnel.Presence.Presence(LocalDate.now(), 100));
-
+        for (int i = 0; i < 13; i++) {
+            o.ajouterPresence(
+                    new Presence(LocalDate.now().minusDays(i), 8)
+            );
+        }
         double salaire = o.calculerSalaire();
 
-        assertTrue(salaire > 1000); // +5%
+        assertTrue(salaire > 1040); // +5%
     }
 
     @Test
@@ -46,7 +50,7 @@ class FormationTest {
 
         GestionDuPersonnel.Personnel.Employe e =
                 new GestionDuPersonnel.Personnel.Employe(
-                        1, "E001", "Test", "User",
+                        1, "E001", "Stark", "Robb",
                         LocalDate.now(),
                         new Contrat(TypeContrat.CDI, LocalDate.now(), null),
                         3000,

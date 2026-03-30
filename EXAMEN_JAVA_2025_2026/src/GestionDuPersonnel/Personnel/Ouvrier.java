@@ -2,82 +2,60 @@ package GestionDuPersonnel.Personnel;
 
 import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Formation.Formation;
+import GestionDuPersonnel.Paie.FrequencePaiement;
 
 import java.time.LocalDate;
 
-public class Ouvrier extends Personnels {
+public class Ouvrier extends personnels {
 
     private double tauxHoraire;
-    private int heuresTravaillees;
 
-    public Ouvrier (int id,
+    public Ouvrier(
+                    int id,
                     String matricule,
                     String nom,
                     String prenom,
                     LocalDate dateEntree,
                     Contrat contrat,
-                    double tauxHoraire,
-                    int heuresTravaillees) {
-        super(id, matricule, nom, prenom, dateEntree, contrat);
+                    double tauxHoraire ) {
+        super(id, matricule,nom,prenom,dateEntree,contrat, FrequencePaiement.BIMENSUEL);
         this.tauxHoraire = tauxHoraire;
-        this.heuresTravaillees = heuresTravaillees;
     }
 
-    /**
-     * Règle métier :
-     * Non payé si absences > 14 jours
-     */
     @Override
-    public boolean estPayable() {
+    public boolean estPayable(){
         return calculerTotalAbsences() <= 14;
     }
 
-    /**
-     * Calcul du salaire
-     */
     @Override
-    public double calculerSalaire() {
-        if (!estPayable()) {
-            return 0;
-        }
+    public double calculerSalaire(){
+        if (!estPayable()) return 0;
 
-        int totalHeures = calculerTotalHeures();
-        double salaire = tauxHoraire * totalHeures;
+        double salaire = tauxHoraire * calculerTotalPresence();
 
-        // Règle formation : +5% si >= 10 jours
-        long totalFormation = formations.stream()
-                .mapToLong(f -> f.getNombreJours())
-                .sum();
-
-        if (totalFormation >= 10) {
+        // Augmentation +5% si la formation >= 10 jours
+        if (calculerTotalFormation() >= 10) {
             salaire *= 1.05;
         }
 
-        return salaire;
+        return appliquerAugmentation(salaire);
     }
-
+    // Max 4 jours/an
     @Override
     public void ajouterFormation(Formation formation) {
-        int annee = formation.getAnnee();
-        long total = calculerFormationAnnuelle(annee);
+        int total = calculerFormationAnnuelle(formation.getAnnee());
 
         if (total + formation.getNombreJours() <= 4) {
             formations.add(formation);
         } else {
-            throw new IllegalArgumentException("Limite de formation dépassée pour un ouvrier");
+            throw new IllegalArgumentException("Max 4 jours/an");
         }
     }
 
 
-
-
     @Override
     public int calculerJoursConges(){
-        return (heuresTravaillees / 160) * 2;
+        return (calculerTotalPresence() / 160) * 2;
     }
 
-    @Override
-    public double appliquerAugmentation(double salaireActuel) {
-        return salaireActuel * 1.05;
-    }
 }

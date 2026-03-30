@@ -13,6 +13,14 @@ public class Formation {
     private LocalDate dateFin;
 
     public Formation(String intitule, LocalDate dateDebut, LocalDate dateFin) {
+
+        if (dateDebut == null || dateFin == null) {
+            throw new IllegalArgumentException("Dates invalides");
+        }
+
+        if (dateFin.isBefore(dateDebut)) {
+            throw new IllegalArgumentException("Date fin invalide");
+        }
         this.intitule = intitule;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -27,5 +35,9 @@ public class Formation {
 
     public int getAnnee() {
         return dateDebut.getYear();
+    }
+
+    public String getIntitule() {
+        return intitule;
     }
 }

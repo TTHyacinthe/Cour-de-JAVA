@@ -15,29 +15,29 @@ class PersonnelsTest {
     @Test
     void testPolymorphismeSalaire() {
 
-        List<Personnels> liste = new ArrayList<>();
+        List<personnels> liste = new ArrayList<>();
 
         liste.add(new Ouvrier(
-                1, "O001", "Doe", "John",
+                1, "O001", "Stark", "Arya",
                 LocalDate.now(),
                 new Contrat(TypeContrat.CDD, LocalDate.now(), null),
-                15, 160));
+                15));
 
         liste.add(new Employe(
-                2, "E001", "Smith", "Anna",
+                2, "E001", "Barathéon", "Joffrey",
                 LocalDate.of(2020, 1, 1),
                 new Contrat(TypeContrat.CDI, LocalDate.of(2020,1,1), null),
                 3000, "Senior"));
 
         liste.add(new Consultant(
-                3, "C001", "Brown", "Lucas",
+                3, "C001", "Ramsey", "Snow",
                 LocalDate.now(),
                 new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
                 500, 20));
 
         double total = 0;
 
-        for (Personnels p : liste) {
+        for (personnels p : liste) {
             total += p.calculerSalaire();
         }
 

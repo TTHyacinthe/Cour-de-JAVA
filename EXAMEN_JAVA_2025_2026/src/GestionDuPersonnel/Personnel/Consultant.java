@@ -1,50 +1,43 @@
-package GestionDuPersonnel.Personnel;
+package  GestionDuPersonnel.Personnel;
 
 import GestionDuPersonnel.Contrat.Contrat;
+import GestionDuPersonnel.Paie.FrequencePaiement;
 
 import java.time.LocalDate;
 
-public class Consultant extends Personnels{
-    private double tarifJournalier;
-    private int facturesJours;
+public class Consultant extends personnels{
 
-    public Consultant(int id,
-                      String matricuel,
-                      String nom,
-                      String prenom,
-                      LocalDate dateEntree,
-                      Contrat contrat,
-                      double tarifJournalier,
-                      int facturesJours) {
-        super(id, matricuel, nom, prenom, dateEntree, contrat);
+    private  double tarifJournalier;
+    private int joursFactures;
+
+    public Consultant(
+                        int id,
+                        String matricule,
+                        String nom,
+                        String prenom,
+                        LocalDate dateEntree,
+                        Contrat contrat,
+                        double tarifJournalier,
+                        int joursFactures){
+        super(id,matricule,nom,prenom,dateEntree,contrat, FrequencePaiement.MENSUEL);
         this.tarifJournalier = tarifJournalier;
-        this.facturesJours = facturesJours;
+        this.joursFactures = joursFactures;
     }
 
-    /**
-     * Règle métier :
-     * Un consultant n’est jamais payé en cas d’absence
-     */
     @Override
-    public boolean estPayable() {
-        return true;
+    public boolean estPayable(){
+        return calculerTotalAbsences() == 0;
     }
 
-    /**
-     * Calcul du salaire
-     */
     @Override
-    public double calculerSalaire() {
-        return tarifJournalier * facturesJours;
+    public double calculerSalaire(){
+        if (!estPayable()) return 0;
+        return appliquerAugmentation(tarifJournalier * joursFactures);
     }
 
     @Override
     public int calculerJoursConges(){
-        return 0; // pas de congés payés
+        return 20;
     }
 
-    @Override
-    public double appliquerAugmentation(double salaireActuel){
-        return salaireActuel; // pas d'augmentation automatique
-    }
 }

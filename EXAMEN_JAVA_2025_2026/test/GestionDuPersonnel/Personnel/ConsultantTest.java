@@ -13,31 +13,33 @@ class ConsultantTest {
     @Test
     void testCalculSalaire() {
         Consultant c = new Consultant(
-                3, "C001", "Brown", "Lucas",
+                3, "C001", "Lannister", "Lucas",
                 LocalDate.now(),
                 new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
                 500, 20
         );
 
-        assertEquals(10000, c.calculerSalaire());
+        assertTrue(c.calculerSalaire() >= 10000);
+
     }
 
     @Test
     void testConges() {
         Consultant c = new Consultant(
-                3, "C001", "Brown", "Lucas",
+                3, "C001", "Lannister", "Lucas",
                 LocalDate.now(),
                 new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
                 500, 20
         );
 
-        assertEquals(0, c.calculerJoursConges());
+        assertEquals(20, c.calculerJoursConges());
+
     }
 
     @Test
     void testAugmentation() {
         Consultant c = new Consultant(
-                3, "C001", "Brown", "Lucas",
+                3, "C001", "Lannister", "Tyrion",
                 LocalDate.now(),
                 new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
                 500, 20

@@ -32,7 +32,7 @@ class FichePaieTest {
     @Test
     void testPrimeFixe() {
         Employe e = new Employe(
-                1, "E001", "Test", "User",
+                1, "E001", "Khal", "Drogo",
                 LocalDate.now(),
                 new Contrat(TypeContrat.CDI, LocalDate.now(), null),
                 3000,
@@ -47,7 +47,7 @@ class FichePaieTest {
     @Test
     void testPrimePourcentage() {
         Employe e = new Employe(
-                1, "E001", "Test", "User",
+                1, "E001", "Baelish", "Petyr",
                 LocalDate.now(),
                 new Contrat(TypeContrat.CDI, LocalDate.now(), null),
                 3000,

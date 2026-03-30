@@ -12,20 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class PresenceTest {
 
     @Test
-    void testCalculHeuresOuvrier() {
-
-        Ouvrier o = new Ouvrier(
-                1, "O001", "Doe", "John",
-                LocalDate.now(),
-                new Contrat(TypeContrat.CDD, LocalDate.now(), null),
-                10, 0 // ⚠️ on ignore heures ici
-        );
-
-        // Ajout des présences
-        o.ajouterPresence(new Presence(LocalDate.now(), 8));
-        o.ajouterPresence(new Presence(LocalDate.now(), 8));
-
-        // 16 heures * 10€
-        assertEquals(160, o.calculerSalaire());
+    void testPresenceValide() {
+        Presence p = new Presence(LocalDate.now(), 8);
+        assertEquals(8, p.getHeuresTravaillees());
     }
+
+    @Test
+    void testPresenceInvalide() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Presence(LocalDate.now(), 30);
+        });
+    }
+
 }

@@ -13,6 +13,14 @@ public class Absence {
     private String motif;
 
     public Absence(LocalDate dateDebut, LocalDate dateFin, String motif) {
+
+        if (dateDebut == null || dateFin == null) {
+            throw new IllegalArgumentException("Les dates ne peuvent pas être null");
+        }
+
+        if (dateFin.isBefore(dateDebut)) {
+            throw new IllegalArgumentException("La date de fin doit être après la date de début");
+        }
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.motif = motif;
@@ -31,5 +39,15 @@ public class Absence {
      */
     public boolean certificatObligatoire() {
         return getNombreJours() > 1;
+    }
+
+    public LocalDate getDateDebut() {
+        return dateDebut;
+    }
+    public LocalDate getDateFin() {
+        return dateFin;
+    }
+    public String getMotif() {
+        return motif;
     }
 }
