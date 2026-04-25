@@ -2,43 +2,44 @@ package GestionDuPersonnel.Paie;
 
 import GestionDuPersonnel.Paie.DpStrategy.Export.ExportFichePaie;
 import GestionDuPersonnel.Paie.DpStrategy.PrimeStrategy;
-import GestionDuPersonnel.Personnel.personnels;
-import GestionDuPersonnel.Personnel.personnels;
-
-/**
- * classe représentant une fiche de paie
- */
+import GestionDuPersonnel.Personnel.Personnels;
 
 public class FichePaie {
 
-    private personnels personnel;
+    private Personnels personnel;
     private PrimeStrategy primeStrategy;
 
-    public FichePaie(personnels personnel,
+    public FichePaie(Personnels personnel,
                      PrimeStrategy primeStrategy) {
+
         this.personnel = personnel;
         this.primeStrategy = primeStrategy;
     }
 
     /**
-     * calcul du salaire total
-     * @return salaire total
+     * Calcul du salaire total
      */
+    public double calculerSalaireTotale() {
 
-    public double calculerSalaireTotale(){
-        double salaireDeBase = personnel.calculerSalaire();
-        double prime = primeStrategy.calculerPrime(salaireDeBase);
-        return salaireDeBase + prime;
+        double salaireBase =
+                personnel.calculerSalaire();
+
+        double prime =
+                primeStrategy.calculerPrime(salaireBase);
+
+        return salaireBase + prime;
     }
 
     /**
-     * Export
+     * Export du document
      */
-    public void exporter(ExportFichePaie exporStrategy, String chemin)
-    {
-        exporStrategy.exporter(this, chemin);
+    public void exporter(ExportFichePaie exportStrategy,
+                         String chemin) {
+
+        exportStrategy.exporter(this, chemin);
     }
-    public personnels getPersonnel() {
+
+    public Personnels getPersonnel() {
         return personnel;
     }
 }

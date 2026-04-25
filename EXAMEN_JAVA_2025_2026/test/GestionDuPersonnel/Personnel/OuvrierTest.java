@@ -14,7 +14,7 @@ class OuvrierTest {
     @Test
     void testCalculSalaire() {
         Ouvrier o = new Ouvrier(
-                1, "O001", "Doe", "John",
+                1, "O001", "Tyrell", "Margaery",
                 LocalDate.now(),
                 new Contrat(TypeContrat.CDD, LocalDate.now(), null),
                 15
@@ -33,7 +33,7 @@ class OuvrierTest {
     @Test
     void testConges() {
         Ouvrier o = new Ouvrier(
-                1, "O001", "Marta", "Pierette",
+                1, "O001", "Tyrell", "Margaery",
                 LocalDate.now(),
                 new Contrat(TypeContrat.CDD, LocalDate.now(), null),
                 15

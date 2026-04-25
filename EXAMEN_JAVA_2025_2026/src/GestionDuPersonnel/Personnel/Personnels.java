@@ -6,6 +6,7 @@ import GestionDuPersonnel.Formation.Formation;
 import GestionDuPersonnel.Interfaces.IAugmentation;
 import GestionDuPersonnel.Interfaces.ICalculSalire;
 import GestionDuPersonnel.Interfaces.IGestionConges;
+import GestionDuPersonnel.Mission.Mission;
 import GestionDuPersonnel.Paie.FrequencePaiement;
 import GestionDuPersonnel.Presence.Presence;
 
@@ -14,7 +15,11 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class personnels implements ICalculSalire, IGestionConges, IAugmentation {
+/**
+ * Classe abstraite représentant un membre du personnel
+ */
+
+public abstract class Personnels implements ICalculSalire, IGestionConges, IAugmentation {
 
     protected int id;
     protected String matricule;
@@ -28,10 +33,11 @@ public abstract class personnels implements ICalculSalire, IGestionConges, IAugm
     protected List<Absence> absences = new ArrayList<>();
     protected List<Presence> presences = new ArrayList<>();
     protected List<Formation> formations = new ArrayList<>();
+    protected List<Mission> missions = new ArrayList<>();
 
     protected int congesPris = 0;
 
-    public personnels(
+    public Personnels(
             int id,
             String matricule,
             String nom,
@@ -54,7 +60,7 @@ public abstract class personnels implements ICalculSalire, IGestionConges, IAugm
 
     }
 
-    // Absences
+    // Ajouter une absence
     public void ajouterAbsence(Absence absence) {
         if (absence == null) {
             throw new IllegalArgumentException("Absence invalide");
@@ -62,6 +68,8 @@ public abstract class personnels implements ICalculSalire, IGestionConges, IAugm
 
         absences.add(absence);
     }
+
+    // Calcule le nombre total de jours d'absence du personnel
     public int calculerTotalAbsences() {
         return absences.stream()
                 .mapToInt(a -> (int) a.getNombreJours())
@@ -135,6 +143,9 @@ public abstract class personnels implements ICalculSalire, IGestionConges, IAugm
         }
         congesPris += jours;
     }
+    public void ajouterMission(Mission mission) {
+        missions.add(mission);
+    }
 
 
     // Anciennete
@@ -148,14 +159,24 @@ public abstract class personnels implements ICalculSalire, IGestionConges, IAugm
     public abstract int calculerJoursConges();
 
     //Getters
-    public String getNom() {
+    public String getNom()
+    {
         return nom;
     }
-    public String getPrenom() {
+    public String getPrenom()
+    {
         return prenom;
     }
-    public String getMatricule() {
+    public String getMatricule()
+    {
         return matricule;
     }
+    public Contrat getContrat()
+    {
+        return contrat;
+    }
+    public abstract String getFonction();
+    public abstract double getBareme();
+
 
 }

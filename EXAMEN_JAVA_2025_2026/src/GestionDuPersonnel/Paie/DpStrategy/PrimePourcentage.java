@@ -5,12 +5,14 @@ public class PrimePourcentage   implements PrimeStrategy {
 
     public PrimePourcentage(double pourcentage)
     {
+
         this.pourcentage = pourcentage;
     }
 
     @Override
     public double calculerPrime(double salaireDeBase)
     {
+
         return salaireDeBase * pourcentage / 100;
     }
 }

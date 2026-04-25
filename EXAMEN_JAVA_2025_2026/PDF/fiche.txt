@@ -1,7 +1,0 @@
-========== FICHE DE PAIE ==========
-Nom : Doe
-Prénom : John
-Matricule : E001
-Salaire de Base : 3000.0
-Salaire total : 3000.0
-=====================================

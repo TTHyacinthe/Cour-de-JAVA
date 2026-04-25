@@ -6,7 +6,11 @@ import GestionDuPersonnel.Paie.FrequencePaiement;
 
 import java.time.LocalDate;
 
-public class Employe extends personnels{
+/**
+ * Cette représente un employé de l'entreprise
+ */
+
+public class Employe extends Personnels {
 
     private double salaireMensuel;
     private String fonction;
@@ -26,19 +30,31 @@ public class Employe extends personnels{
     }
 
     @Override
+    public String getFonction() {
+        return "Employé";
+    }
+    @Override
+    public double getBareme() {
+        return salaireMensuel;
+    }
+
+
+    // Employé payable si ses absences <= 30 jours
+    @Override
     public boolean estPayable(){
         return calculerTotalAbsences() <= 30;
     }
-
+    // calcul du salaire de l'employé
     @Override
     public double calculerSalaire(){
-        if (!estPayable()) return 0;
+        if (! estPayable() ) return 0;
         return appliquerAugmentation(salaireMensuel);
     }
 
     // Max 3 jours/ an
     @Override
     public void ajouterFormation(Formation formation) {
+        // Nombre de jours déjà suivis cette année
         int total = calculerFormationAnnuelle(formation.getAnnee());
 
         if (total + formation.getNombreJours() <= 3) {
@@ -52,7 +68,7 @@ public class Employe extends personnels{
     public boolean peutEtrePromu() {
         return calculerTotalFormation() >= 5;
     }
-
+    // faire +1 jour tous les 3 ans
     @Override
     public int calculerJoursConges(){
         return 20 + (getAnciennete() / 3);

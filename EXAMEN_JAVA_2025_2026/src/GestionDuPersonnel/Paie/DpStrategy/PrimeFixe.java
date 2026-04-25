@@ -5,11 +5,13 @@ public class PrimeFixe implements PrimeStrategy {
 
     public PrimeFixe(double montant)
     {
+
         this.montant = montant;
     }
     @Override
     public double calculerPrime(double salaireDeBase)
     {
+
         return montant;
     }
 }

@@ -6,7 +6,11 @@ import GestionDuPersonnel.Paie.FrequencePaiement;
 
 import java.time.LocalDate;
 
-public class Ouvrier extends personnels {
+/**
+ * Cette représente un ouvrier de l'entreprise
+ */
+
+public class Ouvrier extends Personnels {
 
     private double tauxHoraire;
 
@@ -23,10 +27,22 @@ public class Ouvrier extends personnels {
     }
 
     @Override
+    public String getFonction() {
+        return "Ouvrier";
+    }
+    @Override
+    public double getBareme() {
+        return tauxHoraire;
+    }
+
+
+    // Ouvrier payable si ses absences <= 14 jours
+    @Override
     public boolean estPayable(){
         return calculerTotalAbsences() <= 14;
     }
 
+    // calcul salaire ouvrier
     @Override
     public double calculerSalaire(){
         if (!estPayable()) return 0;
@@ -52,10 +68,12 @@ public class Ouvrier extends personnels {
         }
     }
 
-
+    // tous les 160h travaillées on a 2 jours de congé qui s'ajoute
     @Override
     public int calculerJoursConges(){
         return (calculerTotalPresence() / 160) * 2;
     }
+
+
 
 }

@@ -1,43 +1,53 @@
-package GestionDuPersonnel.Paie.DpStrategy.Export;
+package GestionDuPersonnel.Paie;
 
 import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Contrat.TypeContrat;
-import GestionDuPersonnel.Paie.FichePaie;
-import GestionDuPersonnel.Paie.DpStrategy.PasDePrime;
+import GestionDuPersonnel.Paie.DpStrategy.PrimeFixe;
 import GestionDuPersonnel.Personnel.Employe;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * Test de l'export PDF
- */
-class FichePaiePDFTest {
+public class FichePaiePDFTest {
 
     @Test
-    void testExportFichier() {
+    void genererPdfEmploye() {
 
-        Employe e = new Employe(
-                1, "E001", "Cersei", "Lannister",
-                LocalDate.now(),
-                new Contrat(TypeContrat.CDI, LocalDate.now(), null),
-                3000,
-                "Dev"
+
+        Contrat contrat = new Contrat(
+                TypeContrat.CDI,
+                LocalDate.of(2020, 1, 10),
+                null
         );
 
-        FichePaie fiche = new FichePaie(e, new PasDePrime());
+        Employe emp = new Employe(
+                1,
+                "E001",
+                "Tom",
+                "Jerry",
+                LocalDate.of(2020, 1, 10),
+                contrat,
+                2500,
+                "Employé"
+        );
 
-        String chemin = "D:\\Esa-Namur 2\\Cour-de-JAVA\\EXAMEN_JAVA_2025_2026\\PDF\\ficheSalaire.txt";
+        FichePaie fiche = new FichePaie(
+                emp,
+                new PrimeFixe(300)
+        );
 
-        fiche.exporter(new FichePaiePDF(), chemin);
+        GestionDuPersonnel.Paie.FichePaiePDF pdf = new GestionDuPersonnel.Paie.FichePaiePDF();
+
+        String chemin = "PDF/TestEmploye.pdf";
+
+        pdf.exporter(fiche, chemin);
 
         File file = new File(chemin);
 
         assertTrue(file.exists());
-
-
+        assertTrue(file.length() > 0);
     }
 }

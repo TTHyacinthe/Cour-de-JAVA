@@ -15,7 +15,7 @@ class PersonnelsTest {
     @Test
     void testPolymorphismeSalaire() {
 
-        List<personnels> liste = new ArrayList<>();
+        List<Personnels> liste = new ArrayList<>();
 
         liste.add(new Ouvrier(
                 1, "O001", "Stark", "Arya",
@@ -37,7 +37,7 @@ class PersonnelsTest {
 
         double total = 0;
 
-        for (personnels p : liste) {
+        for (Personnels p : liste) {
             total += p.calculerSalaire();
         }
 

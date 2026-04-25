@@ -2,6 +2,8 @@ package GestionDuPersonnel.Paie;
 
 import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Contrat.TypeContrat;
+import GestionDuPersonnel.Fonction.Fonction;
+import GestionDuPersonnel.Fonction.TypeFonction;
 import GestionDuPersonnel.Personnel.Employe;
 import GestionDuPersonnel.Paie.DpStrategy.PrimeFixe;
 import GestionDuPersonnel.Paie.DpStrategy.PrimePourcentage;
@@ -13,6 +15,10 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FichePaieTest {
+    Fonction fonctionSenior = new Fonction(
+            TypeFonction.SENIOR,
+            3000
+    );
 
     @Test
     void testSansPrime() {

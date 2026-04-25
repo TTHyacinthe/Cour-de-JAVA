@@ -13,11 +13,12 @@ public class Formation {
     private LocalDate dateFin;
 
     public Formation(String intitule, LocalDate dateDebut, LocalDate dateFin) {
-
+        // une formation a toujours une durée bien déterminé
         if (dateDebut == null || dateFin == null) {
             throw new IllegalArgumentException("Dates invalides");
         }
 
+        // cohérence entre la date de fin et la date de debut
         if (dateFin.isBefore(dateDebut)) {
             throw new IllegalArgumentException("Date fin invalide");
         }

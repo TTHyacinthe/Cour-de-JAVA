@@ -13,7 +13,7 @@ class ConsultantTest {
     @Test
     void testCalculSalaire() {
         Consultant c = new Consultant(
-                3, "C001", "Lannister", "Lucas",
+                3, "C001", "Lannister", "Tyrion",
                 LocalDate.now(),
                 new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
                 500, 20
@@ -26,7 +26,7 @@ class ConsultantTest {
     @Test
     void testConges() {
         Consultant c = new Consultant(
-                3, "C001", "Lannister", "Lucas",
+                3, "C001", "Lannister", "Tyrion",
                 LocalDate.now(),
                 new Contrat(TypeContrat.MISSION, LocalDate.now(), null),
                 500, 20
