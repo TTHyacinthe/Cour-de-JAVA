@@ -39,8 +39,18 @@ public class Mission {
     }
 
     public String getTitre() {
+
         return titre;
     }
 
+    public LocalDate getDateDebut() {
+
+        return dateDebut;
+    }
+
+    public LocalDate getDateFin() {
+
+        return dateFin;
+    }
 
 }

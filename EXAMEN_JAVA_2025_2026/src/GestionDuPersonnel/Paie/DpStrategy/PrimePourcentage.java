@@ -1,6 +1,7 @@
 package GestionDuPersonnel.Paie.DpStrategy;
 
 public class PrimePourcentage   implements PrimeStrategy {
+
     private double pourcentage;
 
     public PrimePourcentage(double pourcentage)

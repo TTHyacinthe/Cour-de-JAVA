@@ -1,6 +1,7 @@
 package GestionDuPersonnel.Paie.DpStrategy;
 
 public class PrimeFixe implements PrimeStrategy {
+
     private double montant;
 
     public PrimeFixe(double montant)
@@ -8,6 +9,7 @@ public class PrimeFixe implements PrimeStrategy {
 
         this.montant = montant;
     }
+
     @Override
     public double calculerPrime(double salaireDeBase)
     {

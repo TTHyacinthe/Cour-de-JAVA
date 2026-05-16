@@ -3,7 +3,8 @@ package GestionDuPersonnel.Presence;
 import java.time.LocalDate;
 
 /**
- * Classe représentant une présence d’un employé
+ * Représente une présence d'un membre du personnel,
+ * qui doit contenir une date de présence et le nombre d'heures travaillées ce jour-là
  */
 public class Presence {
 
@@ -13,11 +14,14 @@ public class Presence {
     public Presence(LocalDate date, int heuresTravaillees) {
 
         if (date == null){
+
             throw new IllegalArgumentException("La date ne peut pas être null");
         }
         if (heuresTravaillees < 0 || heuresTravaillees > 24){
+
             throw  new IllegalArgumentException("Nombre d'heures invalide");
         }
+
         this.date = date;
         this.heuresTravaillees = heuresTravaillees;
     }
@@ -26,7 +30,4 @@ public class Presence {
         return heuresTravaillees;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
 }

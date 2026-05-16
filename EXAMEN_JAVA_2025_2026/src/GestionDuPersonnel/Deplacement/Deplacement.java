@@ -18,9 +18,12 @@ public class Deplacement {
                         String villeArrivee,
                         double distanceKm
                         ) {
+
         if (distanceKm <= 0){
-            throw new IllegalArgumentException("Distance invalide");
+
+            throw new IllegalArgumentException("La Distance ne doit pas être négative");
         }
+
         this.date = date;
         this.VilleDepart = villeDepart;
         this.VilleArrivee = villeArrivee;
@@ -30,18 +33,26 @@ public class Deplacement {
      * Calcul du remboursement pour 0.35/km
      */
     public double calculerRemboursement(){
+
         return distanceKm * 0.35;
     }
 
     public double getDistanceKm() {
+
         return distanceKm;
     }
 
     public String getVilleDepart() {
+
         return VilleDepart;
     }
 
     public String getVilleArrivee() {
+
         return VilleArrivee;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 }

@@ -21,11 +21,9 @@ public class FichePaie {
      */
     public double calculerSalaireTotale() {
 
-        double salaireBase =
-                personnel.calculerSalaire();
+        double salaireBase = personnel.calculerSalaire();
 
-        double prime =
-                primeStrategy.calculerPrime(salaireBase);
+        double prime = primeStrategy.calculerPrime(salaireBase);
 
         return salaireBase + prime;
     }
@@ -33,13 +31,38 @@ public class FichePaie {
     /**
      * Export du document
      */
-    public void exporter(ExportFichePaie exportStrategy,
-                         String chemin) {
+    public void exporter(ExportFichePaie exportStrategy, String chemin) {
 
         exportStrategy.exporter(this, chemin);
     }
 
     public Personnels getPersonnel() {
+
         return personnel;
     }
+
+    /**
+     * Salaire brut = salire + prime + remboursement des kilomètres
+     */
+    public double calculerSalaireBrut(){
+
+        return calculerSalaireTotale();
+    }
+
+    /**
+     * Cotidation ONSS "cas simple : 13%"
+     */
+    public double calculerONSS(){
+
+        return calculerSalaireBrut() * 0.13;
+    }
+
+    /**
+     * Impôt "cas simple : 18%"
+     */
+    public double calculerImpot(){
+
+        return calculerSalaireBrut() * 0.18;
+    }
+
 }

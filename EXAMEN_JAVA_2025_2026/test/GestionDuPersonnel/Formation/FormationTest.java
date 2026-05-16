@@ -2,6 +2,8 @@ package GestionDuPersonnel.Formation;
 
 import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Contrat.TypeContrat;
+import GestionDuPersonnel.Personnel.BaremeFonction;
+import GestionDuPersonnel.Personnel.Employe;
 import GestionDuPersonnel.Personnel.Ouvrier;
 import GestionDuPersonnel.Presence.Presence;
 import org.junit.jupiter.api.Test;
@@ -16,51 +18,87 @@ class FormationTest {
     void testAugmentationOuvrier() {
 
         Ouvrier o = new Ouvrier(
-                1, "O001", "Jon", "Snow",
+                1,
+                "John",
+                "Snow",
                 LocalDate.now(),
-                new Contrat(TypeContrat.CDD, LocalDate.now(), null),
+                new Contrat(
+                        TypeContrat.CDD,
+                        LocalDate.now(),
+                        null
+                ),
                 10
         );
 
-        // Formations réparties sur plusieurs années
-        o.ajouterFormation(new Formation("première formation",
-                LocalDate.of(2023,1,1),
-                LocalDate.of(2023,1,4)));
+        o.ajouterFormation(
+                new Formation(
+                        "Première formation",
+                        LocalDate.of(2023,1,1),
+                        LocalDate.of(2023,1,4)
+                )
+        );
 
-        o.ajouterFormation(new Formation("Deuxième formation",
-                LocalDate.of(2024,1,1),
-                LocalDate.of(2024,1,4)));
+        o.ajouterFormation(
+                new Formation(
+                        "Deuxième formation",
+                        LocalDate.of(2024,1,1),
+                        LocalDate.of(2024,1,4)
+                )
+        );
 
-        o.ajouterFormation(new Formation("Troisième formation",
-                LocalDate.of(2025,1,1),
-                LocalDate.of(2025,1,2)));
+        o.ajouterFormation(
+                new Formation(
+                        "Troisième formation",
+                        LocalDate.of(2025,1,1),
+                        LocalDate.of(2025,1,2)
+                )
+        );
 
         for (int i = 0; i < 13; i++) {
+
             o.ajouterPresence(
-                    new Presence(LocalDate.now().minusDays(i), 8)
+                    new Presence(
+                            LocalDate.now().minusDays(i),
+                            8
+                    )
             );
         }
+
         double salaire = o.calculerSalaire();
 
-        assertTrue(salaire > 1040); // +5%
+        // 13 jours × 8h × 10€ = 1040€
+        // Avec bonus formation +5%
+        assertTrue(salaire > 1040);
     }
 
     @Test
     void testLimiteEmploye() {
 
-        GestionDuPersonnel.Personnel.Employe e =
-                new GestionDuPersonnel.Personnel.Employe(
-                        1, "E001", "Stark", "Robb",
+        Employe e = new Employe(
+                1,
+                "Stark",
+                "Robb",
+                LocalDate.now(),
+                new Contrat(
+                        TypeContrat.CDI,
                         LocalDate.now(),
-                        new Contrat(TypeContrat.CDI, LocalDate.now(), null),
-                        3000,
-                        "Senior"
-                );
+                        null
+                ),
+                BaremeFonction.SENIOR
+        );
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            e.ajouterFormation(new Formation("Formation",
-                    LocalDate.of(2024,1,1),
-                    LocalDate.of(2024,1,5))); // 5 jours → dépasse 3
-        });
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+
+                    e.ajouterFormation(
+                            new Formation(
+                                    "Formation",
+                                    LocalDate.of(2024,1,1),
+                                    LocalDate.of(2024,1,5)
+                            )
+                    );
+                }
+        );
     }
 }

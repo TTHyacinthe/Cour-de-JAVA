@@ -1,8 +1,11 @@
-package GestionDuPersonnel.Paie;
+package GestionDuPersonnel.Paie.DpStrategy.Export;
 
 import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Contrat.TypeContrat;
 import GestionDuPersonnel.Paie.DpStrategy.PrimeFixe;
+
+import GestionDuPersonnel.Paie.FichePaie;
+import GestionDuPersonnel.Personnel.BaremeFonction;
 import GestionDuPersonnel.Personnel.Employe;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +19,6 @@ public class FichePaiePDFTest {
     @Test
     void genererPdfEmploye() {
 
-
         Contrat contrat = new Contrat(
                 TypeContrat.CDI,
                 LocalDate.of(2020, 1, 10),
@@ -25,13 +27,11 @@ public class FichePaiePDFTest {
 
         Employe emp = new Employe(
                 1,
-                "E001",
                 "Tom",
                 "Jerry",
                 LocalDate.of(2020, 1, 10),
                 contrat,
-                2500,
-                "Employé"
+                BaremeFonction.JUNIOR
         );
 
         FichePaie fiche = new FichePaie(
@@ -39,7 +39,7 @@ public class FichePaiePDFTest {
                 new PrimeFixe(300)
         );
 
-        GestionDuPersonnel.Paie.FichePaiePDF pdf = new GestionDuPersonnel.Paie.FichePaiePDF();
+        FichePaiePDF pdf = new FichePaiePDF();
 
         String chemin = "PDF/TestEmploye.pdf";
 
