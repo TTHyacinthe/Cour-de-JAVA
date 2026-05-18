@@ -2,6 +2,7 @@ package GestionDuPersonnel.Absence;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 /**
  * Classe métier représentant une absence d’un personnel
@@ -80,5 +81,22 @@ public class Absence {
     public String getMotif() {
 
         return motif;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Absence absence = (Absence) o;
+        return dateDebut.equals(absence.dateDebut) && dateFin.equals(absence.dateFin);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(dateDebut, dateFin);
     }
 }

@@ -179,6 +179,7 @@ public class Main {
         ouvrier.ajouterFormation(formation1);
         ouvrier.ajouterFormation(formation2);
         ouvrier.ajouterFormation(formation3);
+
         System.out.println("Différente formation suivie par l'employé : ");
         System.out.println(
                 "   Formation suivie 1 : "
@@ -228,7 +229,9 @@ public class Main {
 
         System.out.println(
                 "Employé promouvable : "
-                        + employe.peutEtrePromu()
+                        + (employe.peutEtrePromu()
+                        ? "Oui"
+                        : "Non")
         );
         System.out.println();
 
@@ -287,7 +290,9 @@ public class Main {
 
         System.out.println(
                 "   Certificat obligatoire : "
-                    + absence.certificatObligatoire()
+                    + (absence.certificatObligatoire()
+                    ? "Oui"
+                    : "Non")
         );
         System.out.println(
                 "   Date début absence : "
@@ -304,7 +309,9 @@ public class Main {
 
         System.out.println(
                 "Certificat fourni : "
-                    + absence.isCertificatFourni()
+                    + (absence.isCertificatFourni()
+                    ? "Oui"
+                    : "Non")
         );
 
         /*
@@ -326,7 +333,9 @@ public class Main {
         );
         System.out.println(
                 "   Certificat obligatoire : "
-                        + absenceInjustifie.certificatObligatoire()
+                        + (absenceInjustifie.certificatObligatoire()
+                        ? "Oui"
+                        : "Non")
         );
         System.out.println(
                 "   Date début absence : "
@@ -338,7 +347,9 @@ public class Main {
         );
         System.out.println(
                 "Certificat fourni : "
-                        + absenceInjustifie.isCertificatFourni()
+                        + (absenceInjustifie.isCertificatFourni()
+                        ? "Oui"
+                        : "Non")
         );
 
 
@@ -554,7 +565,9 @@ public class Main {
 
         System.out.println(
                 "Ouvrier payable : "
-                    + ouvrierAbsent.estPayable()
+                    + (ouvrierAbsent.estPayable()
+                    ? "Oui"
+                    : "Non")
         );
 
         System.out.println(
@@ -581,7 +594,9 @@ public class Main {
         System.out.println();
         System.out.println(
                 "Employé payable : "
-                        + employeAbsent.estPayable()
+                        + (employeAbsent.estPayable()
+                        ? "Oui"
+                        : "Non")
         );
         System.out.println(
                 "Salaire employé absent : "
@@ -601,7 +616,9 @@ public class Main {
         System.out.println();
         System.out.println(
                 "Consultant payable : "
-                        + consultantSansMission.estPayable()
+                        + (consultantSansMission.estPayable()
+                        ? "Oui"
+                        : "Non")
         );
         System.out.println(
                 "Salaire consultant : "
@@ -639,7 +656,9 @@ public class Main {
         System.out.println();
         System.out.println(
                 "Consultant avec mission payable : "
-                        + consultantAvecConges.estPayable()
+                        + (consultantAvecConges.estPayable()
+                        ? "Oui"
+                        : "Non")
         );
         System.out.println(
                 "Congés consultant pris : 5 jours"

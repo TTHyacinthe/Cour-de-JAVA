@@ -5,6 +5,7 @@ import GestionDuPersonnel.Deplacement.Deplacement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Classe représentant une mission
@@ -51,6 +52,25 @@ public class Mission {
     public LocalDate getDateFin() {
 
         return dateFin;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Mission mission = (Mission) o;
+
+        return titre.equals(mission.titre)
+                && dateDebut.equals(mission.dateDebut);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(titre, dateDebut);
     }
 
 }

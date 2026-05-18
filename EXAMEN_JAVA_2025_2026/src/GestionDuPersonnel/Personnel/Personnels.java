@@ -12,8 +12,9 @@ import GestionDuPersonnel.Presence.Presence;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Classe abstraite représentant un membre du personnel
@@ -29,10 +30,10 @@ public abstract class Personnels implements ICalculSalire, IGestionConges, IAugm
     protected Contrat contrat;
     protected FrequencePaiement frequencePaiement;
 
-    protected List<Absence> absences = new ArrayList<>();
-    protected List<Presence> presences = new ArrayList<>();
-    protected List<Formation> formations = new ArrayList<>();
-    protected List<Mission> missions = new ArrayList<>();
+    protected Set<Presence> presences = new HashSet<>();
+    protected Set<Absence> absences = new HashSet<>();
+    protected Set<Formation> formations = new HashSet<>();
+    protected Set<Mission> missions = new HashSet<>();
 
     protected int congesPris = 0;
 
@@ -67,12 +68,14 @@ public abstract class Personnels implements ICalculSalire, IGestionConges, IAugm
     // Ajouter une absence au personnel
     public void ajouterAbsence(Absence absence) {
 
+        if (!absences.add(absence)){
+
+            throw new IllegalArgumentException("Absence déjà enregistrée");
+        }
         if (absence == null) {
 
             throw new IllegalArgumentException("Absence invalide");
         }
-
-        absences.add(absence);
     }
 
     // Calcule le nombre total de jours d'absence du personnel
@@ -86,12 +89,16 @@ public abstract class Personnels implements ICalculSalire, IGestionConges, IAugm
     // Ajoute une présence au personnel
     public void ajouterPresence(Presence presence) {
 
+        if (!presences.add(presence)) {
+
+            throw new IllegalArgumentException("Presence déjà enregistrée pour cette date");
+        }
+
         if (presence == null) {
 
             throw new IllegalArgumentException("Presence invalide");
         }
 
-        presences.add(presence);
     }
 
     // Calculer le total des heures traavaillées
@@ -105,12 +112,15 @@ public abstract class Personnels implements ICalculSalire, IGestionConges, IAugm
     //Ajouter une formations au personnel
     public void ajouterFormation(Formation formation) {
 
+        if (!formations.add(formation)) {
+
+            throw new IllegalArgumentException("Formation déjà enregistrée");
+        }
+
         if (formation == null) {
 
             throw new IllegalArgumentException("Formation invalide");
         }
-
-        formations.add(formation);
     }
 
     //Calculer le total des jours de formations sur une année
@@ -169,7 +179,11 @@ public abstract class Personnels implements ICalculSalire, IGestionConges, IAugm
     // Ajouter une mission au personnel
     public void ajouterMission(Mission mission) {
 
-        missions.add(mission);
+        if (!missions.add(mission)) {
+
+            throw new IllegalArgumentException("Mission déjà enregistrée");
+        }
+
     }
 
     // Calculer l'Anciennete du personnel
@@ -183,7 +197,7 @@ public abstract class Personnels implements ICalculSalire, IGestionConges, IAugm
         return frequencePaiement;
     }
 
-    public List<Mission> getMissions() {
+    public Set<Mission> getMissions() {
 
         return missions;
     }

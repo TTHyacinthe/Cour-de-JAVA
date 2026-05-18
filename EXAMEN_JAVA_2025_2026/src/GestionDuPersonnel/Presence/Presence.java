@@ -30,4 +30,21 @@ public class Presence {
         return heuresTravaillees;
     }
 
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Presence presence = (Presence) o;
+        return date.equals(presence.date);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return date.hashCode();
+    }
+
 }

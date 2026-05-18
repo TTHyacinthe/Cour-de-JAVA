@@ -2,6 +2,7 @@ package GestionDuPersonnel.Formation;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 /**
  * Classe représentant une formation suivie par un personnel
@@ -44,5 +45,24 @@ public class Formation {
     public String getIntitule() {
 
         return intitule;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Formation that = (Formation) o;
+
+        return intitule.equals(that.intitule)
+                && dateDebut.equals(that.dateDebut);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(intitule, dateDebut);
     }
 }
