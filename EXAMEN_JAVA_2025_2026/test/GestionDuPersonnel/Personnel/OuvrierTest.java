@@ -2,6 +2,7 @@ package GestionDuPersonnel.Personnel;
 
 import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Contrat.TypeContrat;
+import GestionDuPersonnel.Formation.Formation;
 import GestionDuPersonnel.Presence.Presence;
 import org.junit.jupiter.api.Test;
 
@@ -102,4 +103,59 @@ class OuvrierTest {
         );
     }
 
+    @Test
+    void testTauxHoraireInvalide() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Ouvrier(
+                        1,
+                        "Jon",
+                        "Snow",
+                        LocalDate.now(),
+                        new Contrat(
+                                TypeContrat.CDD,
+                                LocalDate.now(),
+                                null
+                        ),
+                        -5
+                )
+        );
+    }
+
+    @Test
+    void testFormationMaxDepassee() {
+
+        Ouvrier o = new Ouvrier(
+                1,
+                "Jon",
+                "Snow",
+                LocalDate.now(),
+                new Contrat(
+                        TypeContrat.CDD,
+                        LocalDate.now(),
+                        null
+                ),
+                15
+        );
+
+        o.ajouterFormation(
+                new Formation(
+                        "Formation 1",
+                        LocalDate.of(2025,1,1),
+                        LocalDate.of(2025,1,2)
+                )
+        );
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> o.ajouterFormation(
+                        new Formation(
+                                "Formation 2",
+                                LocalDate.of(2025,2,1),
+                                LocalDate.of(2025,2,4)
+                        )
+                )
+        );
+    }
 }

@@ -6,15 +6,26 @@ import GestionDuPersonnel.Paie.FrequencePaiement;
 import java.time.LocalDate;
 
 /**
- * Classe représentant un consultant de l'netreprise
+ * Classe représentant un consultant de l'entreprise
+ * Auteur : Hyacinthe TAMO
+ * IA : ChatGPT Free pour la gestion automatique des matricules
  */
-
 public class Consultant extends Personnels {
 
     private static int compteurConsultant = 1;
     private  double tarifJournalier;
     private int joursFactures;
 
+    /**
+     * Créer un nouveau consultant
+     * @param id identifiant du consultant
+     * @param nom nom du consultant
+     * @param prenom prénom du consultant
+     * @param dateEntree date d’entrée dans l’entreprise
+     * @param contrat contrat du consultant
+     * @param tarifJournalier tarif journalier appliqué
+     * @param joursFactures nombre de jours facturés
+     */
     public Consultant(
                         int id,
                         String nom,
@@ -44,7 +55,10 @@ public class Consultant extends Personnels {
         setMatricule(genererMatricule());
     }
 
-    // Génère automatiquement un matricule
+    /**
+     * Génère automatiquement un matricule pour le consultant
+     * @return matricule généré automatiquement
+     */
     private static String genererMatricule(){
 
         int annee = LocalDate.now().getYear();
@@ -56,14 +70,21 @@ public class Consultant extends Personnels {
         );
     }
 
-    // le consultant est payé s'il n'a aucune absence
+    /**
+     * Vérifie si le consultant est payable
+     * Un consultant est payable uniquement lorsqu’il possède au moins une mission.
+     * @return true si le consultant est payable, sinon false
+     */
     @Override
     public boolean estPayable(){
 
         return !getMissions().isEmpty();
     }
 
-    // calcul salaire du consultant
+    /**
+     * Calcule le salaire du consultant
+     * @return salaire calculé du consultant
+     */
     @Override
     public double calculerSalaire(){
 
@@ -81,6 +102,10 @@ public class Consultant extends Personnels {
         return appliquerAugmentation(salaire);
     }
 
+    /**
+     * Calcule le nombre de jours de congés accordés au consultant
+     * @return nombre de jours de congés
+     */
     @Override
     public int calculerJoursConges(){
 

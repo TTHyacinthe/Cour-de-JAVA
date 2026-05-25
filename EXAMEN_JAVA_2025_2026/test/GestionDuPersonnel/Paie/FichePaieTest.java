@@ -2,26 +2,26 @@ package GestionDuPersonnel.Paie;
 
 import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Contrat.TypeContrat;
-import GestionDuPersonnel.Personnel.BaremeFonction;
-import GestionDuPersonnel.Personnel.Employe;
 import GestionDuPersonnel.Paie.DpStrategy.PasDePrime;
 import GestionDuPersonnel.Paie.DpStrategy.PrimeFixe;
 import GestionDuPersonnel.Paie.DpStrategy.PrimePourcentage;
+import GestionDuPersonnel.Personnel.BaremeFonction;
+import GestionDuPersonnel.Personnel.Employe;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FichePaieTest {
 
-    @Test
-    void testSansPrime() {
+    private Employe creerEmploye() {
 
-        Employe e = new Employe(
+        return new Employe(
                 1,
-                "Test",
-                "User",
+                "Lannister",
+                "Tyrion",
                 LocalDate.now(),
                 new Contrat(
                         TypeContrat.CDI,
@@ -30,51 +30,121 @@ class FichePaieTest {
                 ),
                 BaremeFonction.SENIOR
         );
+    }
 
-        FichePaie f = new FichePaie(e, new PasDePrime());
+    @Test
+    void testSansPrime() {
 
-        assertEquals(3900, f.calculerSalaireTotale());
+        Employe e = creerEmploye();
+
+        FichePaie f =
+                new FichePaie(
+                        e,
+                        new PasDePrime()
+                );
+
+        assertEquals(
+                3900,
+                f.calculerSalaireTotale(),
+                0.01
+        );
     }
 
     @Test
     void testPrimeFixe() {
 
-        Employe e = new Employe(
-                1,
-                "Khal",
-                "Drogo",
-                LocalDate.now(),
-                new Contrat(
-                        TypeContrat.CDI,
-                        LocalDate.now(),
-                        null
-                ),
-                BaremeFonction.SENIOR
+        Employe e = creerEmploye();
+
+        FichePaie f =
+                new FichePaie(
+                        e,
+                        new PrimeFixe(500)
+                );
+
+        assertEquals(
+                4400,
+                f.calculerSalaireTotale(),
+                0.01
         );
-
-        FichePaie f = new FichePaie(e, new PrimeFixe(500));
-
-        assertEquals(4400, f.calculerSalaireTotale());
     }
 
     @Test
     void testPrimePourcentage() {
 
-        Employe e = new Employe(
-                1,
-                "Baelish",
-                "Petyr",
-                LocalDate.now(),
-                new Contrat(
-                        TypeContrat.CDI,
-                        LocalDate.now(),
-                        null
-                ),
-                BaremeFonction.SENIOR
+        Employe e = creerEmploye();
+
+        FichePaie f =
+                new FichePaie(
+                        e,
+                        new PrimePourcentage(10)
+                );
+
+        assertEquals(
+                4290,
+                f.calculerSalaireTotale(),
+                0.01
         );
+    }
 
-        FichePaie f = new FichePaie(e, new PrimePourcentage(10));
+    @Test
+    void testCalculONSS() {
 
-        assertEquals(4290, f.calculerSalaireTotale());
+        Employe e = creerEmploye();
+
+        FichePaie f =
+                new FichePaie(
+                        e,
+                        new PasDePrime()
+                );
+
+        assertEquals(
+                507,
+                f.calculerONSS(),
+                0.01
+        );
+    }
+
+    @Test
+    void testCalculImpot() {
+
+        Employe e = creerEmploye();
+
+        FichePaie f =
+                new FichePaie(
+                        e,
+                        new PasDePrime()
+                );
+
+        assertEquals(
+                702,
+                f.calculerImpot(),
+                0.01
+        );
+    }
+
+    @Test
+    void testPersonnelNull() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new FichePaie(
+                        null,
+                        new PasDePrime()
+                )
+        );
+    }
+
+    @Test
+    void testPrimeStrategyNull() {
+
+        Employe e = creerEmploye();
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new FichePaie(
+                        e,
+                        null
+                )
+        );
     }
 }

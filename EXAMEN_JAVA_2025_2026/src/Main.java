@@ -14,12 +14,12 @@ import GestionDuPersonnel.Personnel.Consultant;
 import GestionDuPersonnel.Personnel.Employe;
 import GestionDuPersonnel.Personnel.Ouvrier;
 import GestionDuPersonnel.Presence.Presence;
-
 import java.time.LocalDate;
 
 /**
- * Classe principale permettant de démontrer
- * toutes les règles métier du projet
+ * Classe principale permettant de démontrer toutes les règles métier du projet
+ * Auteur : Hyacinthe TAMO
+ * IA : ChatGPT Free utilisée pour tous ce qui concerne la génération des PDF
  */
 public class Main {
 
@@ -480,7 +480,7 @@ public class Main {
 
         System.out.println(
                 "Montant remboursé : "
-                        + deplacement1.calculerRemboursement()
+                        + String.format("%.2f",deplacement1.calculerRemboursement())
                         + " €"
         );
 

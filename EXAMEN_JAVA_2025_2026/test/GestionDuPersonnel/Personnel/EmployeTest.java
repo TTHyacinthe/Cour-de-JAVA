@@ -2,6 +2,7 @@ package GestionDuPersonnel.Personnel;
 
 import GestionDuPersonnel.Contrat.Contrat;
 import GestionDuPersonnel.Contrat.TypeContrat;
+import GestionDuPersonnel.Formation.Formation;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -26,8 +27,10 @@ class EmployeTest {
                 BaremeFonction.SENIOR
         );
 
-        assertTrue(
-                e.calculerSalaire() >= 3000
+        assertEquals(
+                4134,
+                e.calculerSalaire(),
+                0.01
         );
     }
 
@@ -73,6 +76,71 @@ class EmployeTest {
 
         assertTrue(
                 salaire > 3000
+        );
+    }
+
+    @Test
+    void testFormationMaxDepassee() {
+
+        Employe e = new Employe(
+                1,
+                "Robb",
+                "Stark",
+                LocalDate.now(),
+                new Contrat(
+                        TypeContrat.CDI,
+                        LocalDate.now(),
+                        null
+                ),
+                BaremeFonction.JUNIOR
+        );
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> e.ajouterFormation(
+                        new Formation(
+                                "Formation",
+                                LocalDate.of(2025,1,1),
+                                LocalDate.of(2025,1,5)
+                        )
+                )
+        );
+    }
+
+    @Test
+    void testPromotionPossible() {
+
+        Employe e = new Employe(
+                1,
+                "Robb",
+                "Stark",
+                LocalDate.now(),
+                new Contrat(
+                        TypeContrat.CDI,
+                        LocalDate.now(),
+                        null
+                ),
+                BaremeFonction.JUNIOR
+        );
+
+        e.ajouterFormation(
+                new Formation(
+                        "Formation 1",
+                        LocalDate.of(2023,1,1),
+                        LocalDate.of(2023,1,3)
+                )
+        );
+
+        e.ajouterFormation(
+                new Formation(
+                        "Formation 2",
+                        LocalDate.of(2024,1,1),
+                        LocalDate.of(2024,1,3)
+                )
+        );
+
+        assertTrue(
+                e.peutEtrePromu()
         );
     }
 }

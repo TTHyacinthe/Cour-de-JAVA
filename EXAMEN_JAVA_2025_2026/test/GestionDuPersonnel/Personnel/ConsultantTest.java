@@ -28,7 +28,6 @@ class ConsultantTest {
                 20
         );
 
-        // Ajout d'une mission obligatoire
         c.ajouterMission(
                 new Mission(
                         "Audit",
@@ -37,11 +36,34 @@ class ConsultantTest {
                 )
         );
 
-        /*
-         * 500 × 20 = 10000
-         */
-        assertTrue(
-                c.calculerSalaire() >= 10000
+        assertEquals(
+                10000,
+                c.calculerSalaire(),
+                0.01
+        );
+    }
+
+    @Test
+    void testConsultantSansMission() {
+
+        Consultant c = new Consultant(
+                3,
+                "Lannister",
+                "Tyrion",
+                LocalDate.now(),
+                new Contrat(
+                        TypeContrat.INTERVENTION,
+                        LocalDate.now(),
+                        null
+                ),
+                500,
+                20
+        );
+
+        assertEquals(
+                0,
+                c.calculerSalaire(),
+                0.01
         );
     }
 
@@ -85,9 +107,6 @@ class ConsultantTest {
                 20
         );
 
-        /*
-         * 4 ans = +4%
-         */
         double salaire =
                 c.appliquerAugmentation(10000);
 
@@ -95,6 +114,48 @@ class ConsultantTest {
                 10400,
                 salaire,
                 0.01
+        );
+    }
+
+    @Test
+    void testTarifJournalierInvalide() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Consultant(
+                        1,
+                        "Jon",
+                        "Snow",
+                        LocalDate.now(),
+                        new Contrat(
+                                TypeContrat.INTERVENTION,
+                                LocalDate.now(),
+                                null
+                        ),
+                        -1,
+                        20
+                )
+        );
+    }
+
+    @Test
+    void testJourFactureInvalide() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Consultant(
+                        1,
+                        "Jon",
+                        "Snow",
+                        LocalDate.now(),
+                        new Contrat(
+                                TypeContrat.INTERVENTION,
+                                LocalDate.now(),
+                                null
+                        ),
+                        500,
+                        -2
+                )
         );
     }
 }

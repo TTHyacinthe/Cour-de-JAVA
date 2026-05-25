@@ -19,7 +19,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Génération PDF professionnelle
+ * Classe permettant d'exporter une fiche de paie au format PDF
+ * Auteur : Hyacinthe TAMO
+ * IA : ChatGPT Free utilisée pour tous ce qui concerne la génération des PDF
  */
 public class FichePaiePDF implements ExportFichePaie {
 
@@ -30,6 +32,11 @@ public class FichePaiePDF implements ExportFichePaie {
     private static final DeviceRgb GRIS = new DeviceRgb(240, 240, 240);
     private static final DeviceRgb VERT = new DeviceRgb(0, 150, 70);
 
+    /**
+     * Exporte une fiche de paie au format PDF
+     * @param fiche fiche de paie à exporter
+     * @param chemin chemin de destination du fichier PDF
+     */
     @Override
     public void exporter(
             FichePaie fiche,
@@ -448,7 +455,8 @@ public class FichePaiePDF implements ExportFichePaie {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la génération deu PDF",
+            e);
         }
     }
 
@@ -458,6 +466,11 @@ public class FichePaiePDF implements ExportFichePaie {
      * ==================================================
      */
 
+    /**
+     * Crée une cellule de titre pour les tableaux PDF
+     * @param texte texte affiché dans la cellule
+     * @return cellule formatée pour un titre
+     */
     private Cell cellTitre(String texte) {
 
         return new Cell()
@@ -468,6 +481,11 @@ public class FichePaiePDF implements ExportFichePaie {
                 .setBackgroundColor(GRIS);
     }
 
+    /**
+     * Crée une cellule contenant une valeur pour les tableaux PDF
+     * @param texte texte affiché dans la cellule
+     * @return cellule contenant la valeur
+     */
     private Cell cellValeur(String texte) {
 
         return new Cell()
@@ -482,6 +500,11 @@ public class FichePaiePDF implements ExportFichePaie {
      * ==================================================
      */
 
+    /**
+     * Formate un montant monétaire en euro
+     * @param montant montant à formater
+     * @return montant formaté avec deux décimales suivi du symbole euro
+     */
     private String format(double montant) {
 
         return String.format(

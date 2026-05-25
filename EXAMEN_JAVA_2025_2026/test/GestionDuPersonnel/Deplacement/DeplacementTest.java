@@ -1,15 +1,13 @@
 package GestionDuPersonnel.Deplacement;
 
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeplacementTest {
 
     @Test
-    void testRembousement(){
+    void testRembousement() {
         Deplacement d = new Deplacement(
                 LocalDate.now(),
                 "Namur",
@@ -24,12 +22,26 @@ class DeplacementTest {
     }
 
     @Test
-    void testDistanceInvalide(){
+    void testDistanceInvalide() {
         assertThrows(IllegalArgumentException.class, () -> new Deplacement(
                 LocalDate.now(),
                 "Namur",
                 "Bruxelles",
                 0
         ));
+    }
+
+    @Test
+    void testDistanceNegative() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Deplacement(
+                        LocalDate.now(),
+                        "Namur",
+                        "Bruxelles",
+                        -50
+                )
+        );
     }
 }

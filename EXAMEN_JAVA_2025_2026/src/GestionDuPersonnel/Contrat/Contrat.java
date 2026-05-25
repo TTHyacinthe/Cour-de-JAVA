@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 /**
  * classe représentant un contrat de travail d'un personnel
+ * Auteur : Hyacinthe TAMO
  */
 
 public class Contrat {
@@ -13,6 +14,12 @@ public class Contrat {
     private LocalDate dateDebut;
     private LocalDate dateFin;
 
+    /**
+     * créer un nouveau contrat
+     * @param typeContrat
+     * @param dateDebut
+     * @param dateFin
+     */
     public Contrat(TypeContrat typeContrat,
                    LocalDate dateDebut,
                    LocalDate dateFin) {
@@ -37,14 +44,28 @@ public class Contrat {
         this.dateFin = dateFin;
     }
 
+    /**
+     * Retourne le type du contrat.
+     * @return type du contrat
+     */
     public TypeContrat getTypeContrat() {
 
         return typeContrat;
     }
+
+    /**
+     * Retourne la date de début du contrat.
+     * @return date de début du contrat
+     */
     public LocalDate getDateDebut() {
 
         return dateDebut;
     }
+
+    /**
+     * Retourne la date de fin du contrat.
+     * @return date de fin du contrat ou nuul si le contrat est en cours
+     */
     public LocalDate getDateFin() {
 
         return dateFin;

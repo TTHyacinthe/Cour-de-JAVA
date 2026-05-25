@@ -1,11 +1,8 @@
 package GestionDuPersonnel.Mission;
 
 import GestionDuPersonnel.Deplacement.Deplacement;
-
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class MissionTest {
@@ -41,6 +38,19 @@ class MissionTest {
                 52.5,
                 mission.calculerTotalRemboursement(),
                 0.01
+        );
+    }
+
+    @Test
+    void testMissionInvalide() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Mission(
+                        "",
+                        LocalDate.now(),
+                        LocalDate.now()
+                )
         );
     }
 }

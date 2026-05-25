@@ -8,6 +8,8 @@ import java.time.LocalDate;
 
 /**
  * Cette représente un ouvrier de l'entreprise
+ * Auteur : Hyacinthe TAMO
+ * IA : ChatGPT Free pour la gestion automatique des matricules
  */
 
 public class Ouvrier extends Personnels {
@@ -16,6 +18,15 @@ public class Ouvrier extends Personnels {
 
     private static int compteurOuvrier = 1;
 
+    /**
+     * Crée un nouvel ouvrier
+     * @param id identifiant de l’ouvrier
+     * @param nom nom de l’ouvrier
+     * @param prenom prénom de l’ouvrier
+     * @param dateEntree date d’entrée dans l’entreprise
+     * @param contrat contrat de travail
+     * @param tauxHoraire taux horaire appliqué
+     */
     public Ouvrier(
                     int id,
                     String nom,
@@ -37,7 +48,10 @@ public class Ouvrier extends Personnels {
         setMatricule(genererMatricule());
     }
 
-    // Génère automatiquement un matricule
+    /**
+     * Génère automatiquement un matricule pour l’ouvrier
+     * @return matricule généré automatiquement
+     */
     private static String genererMatricule(){
 
         int annee = LocalDate.now().getYear();
@@ -49,14 +63,21 @@ public class Ouvrier extends Personnels {
         );
     }
 
-    // Ouvrier payable si ses absences <= 14 jours
+    /**
+     * Vérifie si l’ouvrier est payable
+     * Un ouvrier est payable uniquement si le total de ses absences ne dépasse pas 14 jours.
+     * @return true si l’ouvrier est payable, sinon false
+     */
     @Override
     public boolean estPayable(){
 
         return calculerTotalAbsences() <= 14;
     }
 
-    // calcul salaire ouvrier
+    /**
+     * Calcule le salaire de l’ouvrier
+     * @return salaire calculé de l’ouvrier
+     */
     @Override
     public double calculerSalaire(){
 
@@ -73,9 +94,25 @@ public class Ouvrier extends Personnels {
         return appliquerAugmentation(salaire);
     }
 
-    // Max 4 jours/an
+    /**
+     * Ajoute une formation à l’ouvrier
+     * Un ouvrier ne peut pas dépasser 4 jours de formation par année
+     * @param formation formation à ajouter
+     */
     @Override
     public void ajouterFormation(Formation formation) {
+
+        if (formation == null) {
+
+            throw new IllegalArgumentException("Formation invalide");
+        }
+
+        if (formations.contains(formation)) {
+
+            throw new IllegalArgumentException(
+                    "Formation déjà enregistrée"
+            );
+        }
 
         int total = calculerFormationAnnuelle(formation.getAnnee());
 
@@ -88,7 +125,10 @@ public class Ouvrier extends Personnels {
         }
     }
 
-    // tous les 160h travaillées on a 2 jours de congé qui s'ajoute
+    /**
+     * Calcule le nombre de jours de congés accordés à l’ouvrier
+     * @return nombre de jours de congés
+     */
     @Override
     public int calculerJoursConges(){
 
